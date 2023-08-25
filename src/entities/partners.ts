@@ -64,6 +64,6 @@ export class PartnersEntity {
     @UpdateDateColumn({ type: "timestamp" })
     updateAt: Date;
 
-    @ManyToMany(() => AparatEntity,(aparat)=>aparat.partners)
+    @ManyToMany(() => AparatEntity,(aparat)=>aparat.partners,{onDelete:"CASCADE",onUpdate:"CASCADE"})
     aparat: AparatEntity[];
 }

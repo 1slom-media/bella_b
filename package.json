@@ -5,6 +5,7 @@
    "main": "index.js",
    "scripts": {
       "start": "tsc && node ./build/server.js",
+      "start:bella": "tsc && node ./build/server.js",
       "typeorm": "typeorm-ts-node-commonjs"
    },
    "keywords": [],

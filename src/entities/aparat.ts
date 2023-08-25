@@ -74,7 +74,7 @@ export class AparatEntity {
     @OneToMany(()=>ParametrEntity,(parametr)=>parametr.aparat,{onDelete:"CASCADE",onUpdate:"CASCADE"})
     parametr:ParametrEntity[]
 
-    @ManyToMany(() => PartnersEntity,(partners)=>partners.aparat)
+    @ManyToMany(() => PartnersEntity,(partners)=>partners.aparat,{onDelete:"CASCADE",onUpdate:"CASCADE"})
     @JoinTable()
     partners: PartnersEntity[];
 }
