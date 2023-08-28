@@ -4,13 +4,20 @@ import { PereparatEntity } from '../entities/pereparat';
 
 class PereparatController {
     public async Get(req: Request, res: Response): Promise<void> {
-        res.json(await AppDataSource.getRepository(PereparatEntity).find({
-            relations: {
-                company: true,
-                category_pereparat: true,
-                descriptions: true
-            }, order: { id: "ASC" }
-        }));
+        const { categoryId, brandId } = req.query
+
+        let query = AppDataSource.getRepository(PereparatEntity).createQueryBuilder('pereparat').leftJoinAndSelect('pereparat.category_pereparat', 'category_pereparat').leftJoinAndSelect('pereparat.company', 'company').orderBy('pereparat.id', 'ASC')
+
+        if (categoryId && +categoryId > 0) {
+            query = query.where('pereparat.category_pereparat.id = :category_id', { category_id: categoryId });
+        }
+
+        if (brandId && +brandId > 0) {
+            query = query.andWhere('pereparat.company.id = :company_id', { company_id: brandId });
+        }
+
+        const pereparat = await query.getMany();
+        res.json(pereparat);
     }
 
     public async GetId(req: Request, res: Response): Promise<void> {

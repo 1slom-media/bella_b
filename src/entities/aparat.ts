@@ -47,6 +47,12 @@ export class AparatEntity {
     @Column({ type: "text", nullable: true })
     product_benefits: string
 
+    @Column({ type: "text", nullable: true })
+    product_benefits_uz: string
+
+    @Column({ type: "text", nullable: true })
+    product_benefits_en: string
+
     @CreateDateColumn({ type: "timestamp" })
     createdAt: Date;
 
@@ -59,22 +65,22 @@ export class AparatEntity {
     @ManyToOne(() => CategoryApparatEntity, (category_aparat) => category_aparat.aparat, { onDelete: "CASCADE", onUpdate: "CASCADE" })
     category_aparat: CategoryApparatEntity
 
-    @OneToMany(()=>DescriptionEntity,(descriptions)=>descriptions.aparat,{onDelete:"CASCADE",onUpdate:"CASCADE"})
-    descriptions:DescriptionEntity[]
+    @OneToMany(() => DescriptionEntity, (descriptions) => descriptions.aparat, { onDelete: "CASCADE", onUpdate: "CASCADE" })
+    descriptions: DescriptionEntity[]
 
-    @OneToMany(()=>SampleEntity,(sample)=>sample.aparat,{onDelete:"CASCADE",onUpdate:"CASCADE"})
-    sample:SampleEntity[]
+    @OneToMany(() => SampleEntity, (sample) => sample.aparat, { onDelete: "CASCADE", onUpdate: "CASCADE" })
+    sample: SampleEntity[]
 
-    @OneToMany(()=>PhotosEntity,(photos)=>photos.aparat,{onDelete:"CASCADE",onUpdate:"CASCADE"})
-    photos:PhotosEntity[]
+    @OneToMany(() => PhotosEntity, (photos) => photos.aparat, { onDelete: "CASCADE", onUpdate: "CASCADE" })
+    photos: PhotosEntity[]
 
-    @OneToMany(()=>DesignEntity,(design)=>design.aparat,{onDelete:"CASCADE",onUpdate:"CASCADE"})
-    design:DesignEntity[]
+    @OneToMany(() => DesignEntity, (design) => design.aparat, { onDelete: "CASCADE", onUpdate: "CASCADE" })
+    design: DesignEntity[]
 
-    @OneToMany(()=>ParametrEntity,(parametr)=>parametr.aparat,{onDelete:"CASCADE",onUpdate:"CASCADE"})
-    parametr:ParametrEntity[]
+    @OneToMany(() => ParametrEntity, (parametr) => parametr.aparat, { onDelete: "CASCADE", onUpdate: "CASCADE" })
+    parametr: ParametrEntity[]
 
-    @ManyToMany(() => PartnersEntity,(partners)=>partners.aparat,{onDelete:"CASCADE",onUpdate:"CASCADE"})
+    @ManyToMany(() => PartnersEntity, (partners) => partners.aparat, { onDelete: "CASCADE", onUpdate: "CASCADE" })
     @JoinTable()
     partners: PartnersEntity[];
 }

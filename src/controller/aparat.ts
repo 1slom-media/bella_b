@@ -5,18 +5,20 @@ import { PartnersEntity } from '../entities/partners';
 
 class AparatController {
     public async Get(req: Request, res: Response): Promise<void> {
-        res.json(await AppDataSource.getRepository(AparatEntity).find({
-            relations: {
-                company: true,
-                category_aparat: true,
-                partners: true,
-                descriptions:true,
-                sample:true,
-                photos:true,
-                design:true,
-                parametr:true
-            }, order: { id: "ASC" }
-        }));
+        const { categoryId, brandId } = req.query
+
+        let query = AppDataSource.getRepository(AparatEntity).createQueryBuilder('aparat').leftJoinAndSelect('aparat.category_aparat', 'category_aparat').leftJoinAndSelect('aparat.company', 'company').leftJoinAndSelect('aparat.partners', 'partners').leftJoinAndSelect('aparat.descriptions', 'descriptions').leftJoinAndSelect('aparat.sample', 'sample').leftJoinAndSelect('aparat.photos', 'photos').leftJoinAndSelect('aparat.parametr', 'parametr').leftJoinAndSelect('aparat.design', 'design').orderBy('aparat.id', 'ASC')
+
+        if (categoryId && +categoryId > 0) {
+            query = query.where('aparat.category_apparat.id = :category_id', { category_id: categoryId });
+        }
+
+        if (brandId && +brandId > 0) {
+            query = query.andWhere('aparat.company.id = :company_id', { company_id: brandId });
+        }
+
+        const aparat = await query.getMany();
+        res.json(aparat);
     }
 
     public async GetId(req: Request, res: Response): Promise<void> {
@@ -27,17 +29,17 @@ class AparatController {
                 company: true,
                 category_aparat: true,
                 partners: true,
-                descriptions:true,
-                sample:true,
-                photos:true,
-                design:true,
-                parametr:true
+                descriptions: true,
+                sample: true,
+                photos: true,
+                design: true,
+                parametr: true
             }, where: { id: +id }
         }));
     }
 
     public async Post(req: Request, res: Response) {
-        const { name_uz, name_en, name_ru, description_uz, description_en, description_ru, image1, image2, image3, pdf, product_benefits, company, category_aparat, partners } = req.body
+        const { name_uz, name_en, name_ru, description_uz, description_en, description_ru, image1, image2, image3, pdf, product_benefits, product_benefits_uz, product_benefits_en, company, category_aparat, partners } = req.body
 
         const foundPartners = await AppDataSource.getRepository(PartnersEntity).find({ where: { id: partners } })
 
@@ -55,6 +57,8 @@ class AparatController {
             aparat.image3 = image3
             aparat.pdf = pdf
             aparat.product_benefits = product_benefits
+            aparat.product_benefits_uz = product_benefits_uz
+            aparat.product_benefits_en = product_benefits_en
             aparat.company = company
             aparat.category_aparat = category_aparat
             aparat.partners = foundPartners
@@ -70,6 +74,8 @@ class AparatController {
         aparat.image3 = image3
         aparat.pdf = pdf
         aparat.product_benefits = product_benefits
+        aparat.product_benefits_uz = product_benefits_uz
+        aparat.product_benefits_en = product_benefits_en
         aparat.company = company
         aparat.category_aparat = category_aparat
 
@@ -84,7 +90,7 @@ class AparatController {
 
     public async Put(req: Request, res: Response) {
         try {
-            const { name_uz, name_en, name_ru, description_uz, description_en, description_ru, image1, image2, image3, pdf, product_benefits, company, category_aparat, partners } = req.body
+            const { name_uz, name_en, name_ru, description_uz, description_en, description_ru, image1, image2, image3, pdf, product_benefits, product_benefits_uz, product_benefits_en, company, category_aparat, partners } = req.body
             const { id } = req.params
 
             const foundPartners = await AppDataSource.getRepository(PartnersEntity).find({ where: { id: partners } })
@@ -103,6 +109,8 @@ class AparatController {
                 aparat.image3 = image3 != undefined ? image3 : aparat.image3
                 aparat.pdf = pdf != undefined ? pdf : aparat.pdf
                 aparat.product_benefits = product_benefits != undefined ? product_benefits : aparat.product_benefits
+                aparat.product_benefits_uz = product_benefits_uz != undefined ? product_benefits_uz : aparat.product_benefits_uz
+                aparat.product_benefits_en = product_benefits_en != undefined ? product_benefits_en : aparat.product_benefits_en
                 aparat.company = company != undefined ? company : aparat.company
                 aparat.category_aparat = category_aparat != undefined ? category_aparat : aparat.category_aparat
                 aparat.partners = foundPartners
@@ -118,6 +126,8 @@ class AparatController {
             aparat.image3 = image3 != undefined ? image3 : aparat.image3
             aparat.pdf = pdf != undefined ? pdf : aparat.pdf
             aparat.product_benefits = product_benefits != undefined ? product_benefits : aparat.product_benefits
+            aparat.product_benefits_uz = product_benefits_uz != undefined ? product_benefits_uz : aparat.product_benefits_uz
+            aparat.product_benefits_en = product_benefits_en != undefined ? product_benefits_en : aparat.product_benefits_en
             aparat.company = company != undefined ? company : aparat.company
             aparat.category_aparat = category_aparat != undefined ? category_aparat : aparat.category_aparat
 
