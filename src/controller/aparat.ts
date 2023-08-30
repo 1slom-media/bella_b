@@ -10,7 +10,7 @@ class AparatController {
         let query = AppDataSource.getRepository(AparatEntity).createQueryBuilder('aparat').leftJoinAndSelect('aparat.category_aparat', 'category_aparat').leftJoinAndSelect('aparat.company', 'company').leftJoinAndSelect('aparat.partners', 'partners').leftJoinAndSelect('aparat.descriptions', 'descriptions').leftJoinAndSelect('aparat.sample', 'sample').leftJoinAndSelect('aparat.photos', 'photos').leftJoinAndSelect('aparat.parametr', 'parametr').leftJoinAndSelect('aparat.design', 'design').orderBy('aparat.id', 'ASC')
 
         if (categoryId && +categoryId > 0) {
-            query = query.where('aparat.category_apparat.id = :category_id', { category_id: categoryId });
+            query = query.where('aparat.category_aparat.id = :category_id', { category_id: categoryId });
         }
 
         if (brandId && +brandId > 0) {

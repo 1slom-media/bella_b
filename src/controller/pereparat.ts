@@ -6,7 +6,7 @@ class PereparatController {
     public async Get(req: Request, res: Response): Promise<void> {
         const { categoryId, brandId } = req.query
 
-        let query = AppDataSource.getRepository(PereparatEntity).createQueryBuilder('pereparat').leftJoinAndSelect('pereparat.category_pereparat', 'category_pereparat').leftJoinAndSelect('pereparat.company', 'company').orderBy('pereparat.id', 'ASC')
+        let query = AppDataSource.getRepository(PereparatEntity).createQueryBuilder('pereparat').leftJoinAndSelect('pereparat.category_pereparat', 'category_pereparat').leftJoinAndSelect('pereparat.company', 'company').leftJoinAndSelect('aparat.descriptions', 'descriptions').orderBy('pereparat.id', 'ASC')
 
         if (categoryId && +categoryId > 0) {
             query = query.where('pereparat.category_pereparat.id = :category_id', { category_id: categoryId });
