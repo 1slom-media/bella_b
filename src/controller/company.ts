@@ -8,8 +8,10 @@ class   CompanyController {
             relations: {
                 category_apparat: true,
                 category_pereparat: true,
+                category_cosmetics:true,
                 pereparat: true,
-                aparat:true
+                aparat:true,
+                cosmetics:true
             },
             order: { id: "ASC" }
         }));
@@ -22,8 +24,10 @@ class   CompanyController {
             relations: {
                 category_apparat: true,
                 category_pereparat: true,
+                category_cosmetics:true,
                 pereparat: true,
-                aparat:true
+                aparat:true,
+                cosmetics:true
             },
             where: { id: +id }
         }));

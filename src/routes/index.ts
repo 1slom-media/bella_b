@@ -16,6 +16,8 @@ import photos from "../controller/photos";
 import design from "../controller/design";
 import parametr from "../controller/parametr";
 import checkToken from "../middlewares/checkToken";
+import category_cosmetics from "../controller/category_cosmetics";
+import cosmetics from "../controller/cosmetics";
 
 const router = Router()
 
@@ -76,6 +78,13 @@ router.post("/category_pereparat",checkToken,category_pereparat.Post);
 router.put("/category_pereparat/:id",checkToken,category_pereparat.Put);
 router.delete("/category_pereparat/:id",checkToken,category_pereparat.Delete);
 
+// route category_cosmetics
+router.get("/category_cosmetics",category_cosmetics.Get);
+router.get("/category_cosmetics/:id",category_cosmetics.GetId);
+router.post("/category_cosmetics",checkToken,category_cosmetics.Post);
+router.put("/category_cosmetics/:id",checkToken,category_cosmetics.Put);
+router.delete("/category_cosmetics/:id",checkToken,category_cosmetics.Delete);
+
 // route pereparat
 router.get("/pereparat",pereparat.Get);
 router.get("/pereparat/:id",pereparat.GetId);
@@ -103,6 +112,13 @@ router.get("/descriptions/:id",description.GetId);
 router.post("/descriptions",checkToken,description.Post);
 router.put("/descriptions/:id",checkToken,description.Put);
 router.delete("/descriptions/:id",checkToken,description.Delete);
+
+// route cosmetics
+router.get("/cosmetics",cosmetics.Get);
+router.get("/cosmetics/:id",cosmetics.GetId);
+router.post("/cosmetics",checkToken,cosmetics.Post);
+router.put("/cosmetics/:id",checkToken,cosmetics.Put);
+router.delete("/cosmetics/:id",checkToken,cosmetics.Delete);
 
 // route sample
 router.get("/sample",sample.Get);

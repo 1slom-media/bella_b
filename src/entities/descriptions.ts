@@ -2,6 +2,7 @@ import { IsString } from "class-validator";
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne} from "typeorm";
 import { AparatEntity } from "./aparat";
 import { PereparatEntity } from "./pereparat";
+import { CosmeticsEntity } from "./cosmetics";
 
 @Entity({ name: "description" })
 export class DescriptionEntity {
@@ -32,4 +33,7 @@ export class DescriptionEntity {
 
     @ManyToOne(() => PereparatEntity, (pereparat) => pereparat.descriptions, { onDelete: "CASCADE", onUpdate: "CASCADE" })
     pereparat: PereparatEntity
+
+    @ManyToOne(() => CosmeticsEntity, (cosmetics) => cosmetics.descriptions, { onDelete: "CASCADE", onUpdate: "CASCADE" })
+    cosmetics: CosmeticsEntity
 }

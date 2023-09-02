@@ -16,6 +16,8 @@ import { SampleEntity } from "./entities/sample"
 import { PhotosEntity } from "./entities/photos"
 import { DesignEntity } from "./entities/design"
 import { ParametrEntity } from "./entities/parametr"
+import { CosmeticsEntity } from "./entities/cosmetics"
+import { CategoryCosmeticsEntity } from "./entities/category_cosmetic"
 
 export const AppDataSource = new DataSource({
     type: "postgres",
@@ -26,7 +28,7 @@ export const AppDataSource = new DataSource({
     database: "bella_b",
     synchronize: true,
     logging: false,
-    entities: [FormaAppEntity,CompanyEntity,SertificatEntity,NewsEntity,CategoryApparatEntity,CategoryPereparatEntity,NewsFormEntity,AdminEntity,PartnersEntity,AparatEntity,PereparatEntity,DescriptionEntity,SampleEntity,PhotosEntity,DesignEntity,ParametrEntity],
+    entities: [FormaAppEntity,CompanyEntity,SertificatEntity,NewsEntity,CategoryApparatEntity,CategoryPereparatEntity,NewsFormEntity,AdminEntity,PartnersEntity,AparatEntity,PereparatEntity,DescriptionEntity,SampleEntity,PhotosEntity,DesignEntity,ParametrEntity,CosmeticsEntity,CategoryCosmeticsEntity],
     migrations: [],
     subscribers: [],
 })

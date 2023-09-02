@@ -7,7 +7,8 @@ class Descriptionontroller {
         res.json(await AppDataSource.getRepository(DescriptionEntity).find({
             relations: {
                 aparat: true,
-                pereparat: true
+                pereparat: true,
+                cosmetics:true
             }, order: { id: "ASC" }
         }));
     }
@@ -18,15 +19,16 @@ class Descriptionontroller {
         res.json(await AppDataSource.getRepository(DescriptionEntity).find({
             relations: {
                 aparat: true,
-                pereparat: true
+                pereparat: true,
+                cosmetics:true
             }, where: { id: +id }
         }));
     }
 
     public async Post(req: Request, res: Response) {
-        const { description_uz, description_en, description_ru, youtube_link, aparat, pereparat } = req.body
+        const { description_uz, description_en, description_ru, youtube_link, aparat, pereparat,cosmetics } = req.body
 
-        const description = await AppDataSource.getRepository(DescriptionEntity).createQueryBuilder().insert().into(DescriptionEntity).values({ description_uz, description_en, description_ru, youtube_link, aparat, pereparat }).returning("*").execute()
+        const description = await AppDataSource.getRepository(DescriptionEntity).createQueryBuilder().insert().into(DescriptionEntity).values({ description_uz, description_en, description_ru, youtube_link, aparat, pereparat,cosmetics }).returning("*").execute()
 
         res.json({
             status: 201,
@@ -37,11 +39,11 @@ class Descriptionontroller {
 
     public async Put(req: Request, res: Response) {
         try {
-            const { description_uz, description_en, description_ru, youtube_link, aparat, pereparat } = req.body
+            const { description_uz, description_en, description_ru, youtube_link, aparat, pereparat,cosmetics } = req.body
             const { id } = req.params
 
             const description = await AppDataSource.getRepository(DescriptionEntity).createQueryBuilder().update(DescriptionEntity)
-                .set({ description_uz, description_en, description_ru, youtube_link, aparat, pereparat })
+                .set({ description_uz, description_en, description_ru, youtube_link, aparat, pereparat,cosmetics })
                 .where({ id })
                 .returning("*")
                 .execute()
