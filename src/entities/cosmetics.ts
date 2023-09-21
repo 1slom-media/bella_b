@@ -52,7 +52,7 @@ export class CosmeticsEntity {
     @ManyToOne(() => CategoryCosmeticsEntity  , (category_cosmetics) => category_cosmetics.cosmetics, { onDelete: "CASCADE", onUpdate: "CASCADE" })
     category_cosmetics: CategoryCosmeticsEntity  
 
-    @OneToMany(()=>DescriptionEntity,(descriptions)=>descriptions.pereparat,{onDelete:"CASCADE",onUpdate:"CASCADE"})
+    @OneToMany(()=>DescriptionEntity,(descriptions)=>descriptions.cosmetics,{onDelete:"CASCADE",onUpdate:"CASCADE"})
     descriptions:DescriptionEntity[]
 
 }

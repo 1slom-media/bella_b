@@ -27,7 +27,7 @@ class CosmeticsController {
             relations: {
                 company: true,
                 category_cosmetics: true,
-                descriptions: true
+                descriptions:true
             }, where: { id: +id }
         }));
     }
