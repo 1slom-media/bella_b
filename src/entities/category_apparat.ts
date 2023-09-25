@@ -1,6 +1,5 @@
 import { IsString } from "class-validator";
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany } from "typeorm";
-import { CompanyEntity } from "./company";
 import { AparatEntity } from "./aparat";
 
 
@@ -26,9 +25,6 @@ export class CategoryApparatEntity {
 
     @UpdateDateColumn({ type: "timestamp" })
     updateAt: Date;
-
-    @ManyToOne(() => CompanyEntity, (company) => company.category_apparat, { onDelete: "CASCADE", onUpdate: "CASCADE" })
-    company: CompanyEntity
 
     @OneToMany(() => AparatEntity, (aparat) => aparat.category_aparat, { onDelete: "CASCADE", onUpdate: "CASCADE" })
     aparat: AparatEntity[]

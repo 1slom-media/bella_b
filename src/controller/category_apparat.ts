@@ -6,8 +6,7 @@ class AppratCategoryController {
     public async Get(req: Request, res: Response): Promise<void> {
         res.json(await AppDataSource.getRepository(CategoryApparatEntity).find({
             relations: {
-                company: true,
-                aparat:true
+                aparat: true
             }, order: { id: "ASC" }
         }));
     }
@@ -17,16 +16,15 @@ class AppratCategoryController {
 
         res.json(await AppDataSource.getRepository(CategoryApparatEntity).find({
             relations: {
-                company: true,
-                aparat:true
+                aparat: true
             }, where: { id: +id }
         }));
     }
 
     public async Post(req: Request, res: Response) {
-        const { title_uz, title_en, title_ru,company } = req.body
+        const { title_uz, title_en, title_ru} = req.body
 
-        const apparat_category = await AppDataSource.getRepository(CategoryApparatEntity).createQueryBuilder().insert().into(CategoryApparatEntity).values({ title_uz, title_en, title_ru,company  }).returning("*").execute()
+        const apparat_category = await AppDataSource.getRepository(CategoryApparatEntity).createQueryBuilder().insert().into(CategoryApparatEntity).values({ title_uz, title_en, title_ru}).returning("*").execute()
 
         res.json({
             status: 201,
@@ -37,11 +35,11 @@ class AppratCategoryController {
 
     public async Put(req: Request, res: Response) {
         try {
-            const { title_uz, title_en, title_ru,company  } = req.body
+            const { title_uz, title_en, title_ru} = req.body
             const { id } = req.params
 
             const apparat_category = await AppDataSource.getRepository(CategoryApparatEntity).createQueryBuilder().update(CategoryApparatEntity)
-                .set({ title_uz, title_en, title_ru,company  })
+                .set({ title_uz, title_en, title_ru})
                 .where({ id })
                 .returning("*")
                 .execute()

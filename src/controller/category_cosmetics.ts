@@ -6,8 +6,7 @@ class CosmeticsCategoryController {
     public async Get(req: Request, res: Response): Promise<void> {
         res.json(await AppDataSource.getRepository(CategoryCosmeticsEntity).find({
             relations: {
-                company: true,
-                cosmetics:true
+                cosmetics: true
             }, order: { id: "ASC" }
         }));
     }
@@ -17,16 +16,15 @@ class CosmeticsCategoryController {
 
         res.json(await AppDataSource.getRepository(CategoryCosmeticsEntity).find({
             relations: {
-                company: true,
-                cosmetics:true
+                cosmetics: true
             }, where: { id: +id }
         }));
     }
 
     public async Post(req: Request, res: Response) {
-        const { title_uz, title_en, title_ru, company } = req.body
+        const { title_uz, title_en, title_ru } = req.body
 
-        const cosmetics_category = await AppDataSource.getRepository(CategoryCosmeticsEntity).createQueryBuilder().insert().into(CategoryCosmeticsEntity).values({ title_uz, title_en, title_ru, company }).returning("*").execute()
+        const cosmetics_category = await AppDataSource.getRepository(CategoryCosmeticsEntity).createQueryBuilder().insert().into(CategoryCosmeticsEntity).values({ title_uz, title_en, title_ru }).returning("*").execute()
 
         res.json({
             status: 201,
@@ -37,11 +35,11 @@ class CosmeticsCategoryController {
 
     public async Put(req: Request, res: Response) {
         try {
-            const { title_uz, title_en, title_ru, company } = req.body
+            const { title_uz, title_en, title_ru } = req.body
             const { id } = req.params
 
             const cosmetics_category = await AppDataSource.getRepository(CategoryCosmeticsEntity).createQueryBuilder().update(CategoryCosmeticsEntity)
-                .set({ title_uz, title_en, title_ru, company })
+                .set({ title_uz, title_en, title_ru })
                 .where({ id })
                 .returning("*")
                 .execute()

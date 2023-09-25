@@ -2,16 +2,13 @@ import { Request, Response } from 'express';
 import { AppDataSource } from '../data-source';
 import { CompanyEntity } from '../entities/company';
 
-class   CompanyController {
+class CompanyController {
     public async Get(req: Request, res: Response): Promise<void> {
         res.json(await AppDataSource.getRepository(CompanyEntity).find({
             relations: {
-                category_apparat: true,
-                category_pereparat: true,
-                category_cosmetics:true,
                 pereparat: true,
-                aparat:true,
-                cosmetics:true
+                aparat: true,
+                cosmetics: true
             },
             order: { id: "ASC" }
         }));
@@ -22,12 +19,9 @@ class   CompanyController {
 
         res.json(await AppDataSource.getRepository(CompanyEntity).find({
             relations: {
-                category_apparat: true,
-                category_pereparat: true,
-                category_cosmetics:true,
                 pereparat: true,
-                aparat:true,
-                cosmetics:true
+                aparat: true,
+                cosmetics: true
             },
             where: { id: +id }
         }));
@@ -83,4 +77,4 @@ class   CompanyController {
     }
 }
 
-export default new  CompanyController();
+export default new CompanyController();

@@ -1,10 +1,7 @@
 import { IsString } from "class-validator";
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn, UpdateDateColumn} from "typeorm";
-import { CategoryApparatEntity } from "./category_apparat";
-import { CategoryPereparatEntity } from "./category_pereparat";
 import { PereparatEntity } from "./pereparat";
 import { AparatEntity } from "./aparat";
-import { CategoryCosmeticsEntity } from "./category_cosmetic";
 import { CosmeticsEntity } from "./cosmetics";
 
 @Entity({ name: "company" })
@@ -49,15 +46,6 @@ export class CompanyEntity {
 
     @UpdateDateColumn({ type: "timestamp" })
     updateAt: Date;
-
-    @OneToMany(()=>CategoryApparatEntity,(category_apparat)=>category_apparat.company,{onDelete:"CASCADE",onUpdate:"CASCADE"})
-    category_apparat:CategoryApparatEntity[]
-
-    @OneToMany(()=>CategoryPereparatEntity,(category_pereparat)=>category_pereparat.company,{onDelete:"CASCADE",onUpdate:"CASCADE"})
-    category_pereparat:CategoryPereparatEntity[]
-
-    @OneToMany(()=>CategoryCosmeticsEntity,(category_cosmetics)=>category_cosmetics.company,{onDelete:"CASCADE",onUpdate:"CASCADE"})
-    category_cosmetics:CategoryCosmeticsEntity[]
 
     @OneToMany(()=>PereparatEntity,(pereparat)=>pereparat.company,{onDelete:"CASCADE",onUpdate:"CASCADE"})
     pereparat:PereparatEntity[]

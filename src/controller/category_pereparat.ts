@@ -6,8 +6,7 @@ class PereparatCategoryController {
     public async Get(req: Request, res: Response): Promise<void> {
         res.json(await AppDataSource.getRepository(CategoryPereparatEntity).find({
             relations: {
-                company: true,
-                pereparat:true
+                pereparat: true
             }, order: { id: "ASC" }
         }));
     }
@@ -17,16 +16,15 @@ class PereparatCategoryController {
 
         res.json(await AppDataSource.getRepository(CategoryPereparatEntity).find({
             relations: {
-                company: true,
-                pereparat:true
+                pereparat: true
             }, where: { id: +id }
         }));
     }
 
     public async Post(req: Request, res: Response) {
-        const { title_uz, title_en, title_ru, company } = req.body
+        const { title_uz, title_en, title_ru} = req.body
 
-        const pereparat_category = await AppDataSource.getRepository(CategoryPereparatEntity).createQueryBuilder().insert().into(CategoryPereparatEntity).values({ title_uz, title_en, title_ru, company }).returning("*").execute()
+        const pereparat_category = await AppDataSource.getRepository(CategoryPereparatEntity).createQueryBuilder().insert().into(CategoryPereparatEntity).values({ title_uz, title_en, title_ru}).returning("*").execute()
 
         res.json({
             status: 201,
@@ -37,11 +35,11 @@ class PereparatCategoryController {
 
     public async Put(req: Request, res: Response) {
         try {
-            const { title_uz, title_en, title_ru, company } = req.body
+            const { title_uz, title_en, title_ru} = req.body
             const { id } = req.params
 
             const pereparat_category = await AppDataSource.getRepository(CategoryPereparatEntity).createQueryBuilder().update(CategoryPereparatEntity)
-                .set({ title_uz, title_en, title_ru, company })
+                .set({ title_uz, title_en, title_ru})
                 .where({ id })
                 .returning("*")
                 .execute()
