@@ -24,7 +24,7 @@ const router = Router()
 // route application_form
 router.get("/application_form",application_form.Get);
 router.get("/application_form/:id",application_form.GetId);
-router.post("/application_form",checkToken,application_form.Post);
+router.post("/application_form",application_form.Post);
 router.put("/application_form/:id",checkToken,application_form.Put);
 router.delete("/application_form/:id",checkToken,application_form.Delete);
 
@@ -60,7 +60,7 @@ router.delete("/admins/:id",checkToken,admin.Delete);
 // route news_form
 router.get("/news_form",news_form.Get);
 router.get("/news_form/:id",news_form.GetId);
-router.post("/news_form",checkToken,news_form.Post);
+router.post("/news_form",news_form.Post);
 router.put("/news_form/:id",checkToken,news_form.Put);
 router.delete("/news_form/:id",checkToken,news_form.Delete);
 
