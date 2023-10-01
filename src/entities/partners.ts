@@ -38,9 +38,6 @@ export class PartnersEntity {
     image3: string
 
     @Column({ type: "varchar", nullable: true })
-    video: string
-
-    @Column({ type: "varchar", nullable: true })
     location: string
 
     @Column({ type: "varchar", nullable: true })

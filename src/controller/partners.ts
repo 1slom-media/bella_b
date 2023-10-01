@@ -23,7 +23,7 @@ class PartnersController {
     }
 
     public async Post(req: Request, res: Response) {
-        const { logo, name_uz, name_en, name_ru, description_uz, description_en, description_ru, image1, image2, image3, video, location, phone_number1, phone_number2, telegram_link, facebook_link, instagram_link, aparat } = req.body
+        const { logo, name_uz, name_en, name_ru, description_uz, description_en, description_ru, image1, image2, image3, location, phone_number1, phone_number2, telegram_link, facebook_link, instagram_link, aparat } = req.body
 
         const foundAparat = await AppDataSource.getRepository(AparatEntity).find({ where: { id: aparat } })
 
@@ -39,7 +39,6 @@ class PartnersController {
             partners.image1 = image1
             partners.image2 = image2
             partners.image3 = image3
-            partners.video = video
             partners.location = location
             partners.phone_number1 = phone_number1
             partners.phone_number2 = phone_number2
@@ -58,7 +57,6 @@ class PartnersController {
         partners.image1 = image1
         partners.image2 = image2
         partners.image3 = image3
-        partners.video = video
         partners.location = location
         partners.phone_number1 = phone_number1
         partners.phone_number2 = phone_number2
@@ -78,7 +76,7 @@ class PartnersController {
 
     public async Put(req: Request, res: Response) {
         try {
-            const { logo, name_uz, name_en, name_ru, description_uz, description_en, description_ru, image1, image2, image3, video, location, phone_number1, phone_number2, telegram_link, facebook_link, instagram_link, aparat } = req.body
+            const { logo, name_uz, name_en, name_ru, description_uz, description_en, description_ru, image1, image2, image3, location, phone_number1, phone_number2, telegram_link, facebook_link, instagram_link, aparat } = req.body
             const { id } = req.params
 
             const foundAparat = await AppDataSource.getRepository(AparatEntity).find({ where: { id: aparat } })
@@ -96,7 +94,6 @@ class PartnersController {
                 partners.image1 = image1 != undefined ? image1 : partners.image1
                 partners.image2 = image2 != undefined ? image2 : partners.image2
                 partners.image3 = image3 != undefined ? image3 : partners.image3
-                partners.video = video
                 partners.location = location != undefined ? location : partners.location
                 partners.phone_number1 = phone_number1 != undefined ? phone_number1 : partners.phone_number1
                 partners.phone_number2 = phone_number2 != undefined ? phone_number2 : partners.phone_number2
@@ -115,7 +112,6 @@ class PartnersController {
             partners.image1 = image1 != undefined ? image1 : partners.image1
             partners.image2 = image2 != undefined ? image2 : partners.image2
             partners.image3 = image3 != undefined ? image3 : partners.image3
-            partners.video = video != undefined ? video : partners.video
             partners.location = location != undefined ? location : partners.location
             partners.phone_number1 = phone_number1 != undefined ? phone_number1 : partners.phone_number1
             partners.phone_number2 = phone_number2 != undefined ? phone_number2 : partners.phone_number2

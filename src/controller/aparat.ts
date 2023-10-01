@@ -5,21 +5,32 @@ import { PartnersEntity } from '../entities/partners';
 
 class AparatController {
     public async Get(req: Request, res: Response): Promise<void> {
-        const { categoryId, brandId } = req.query
-
-        let query = AppDataSource.getRepository(AparatEntity).createQueryBuilder('aparat').leftJoinAndSelect('aparat.category_aparat', 'category_aparat').leftJoinAndSelect('aparat.company', 'company').leftJoinAndSelect('aparat.partners', 'partners').leftJoinAndSelect('aparat.descriptions', 'descriptions').leftJoinAndSelect('aparat.sample', 'sample').leftJoinAndSelect('aparat.photos', 'photos').leftJoinAndSelect('aparat.parametr', 'parametr').leftJoinAndSelect('aparat.design', 'design').orderBy('aparat.id', 'ASC')
-
+        const { categoryId, brandId } = req.query;
+    
+        let query = AppDataSource.getRepository(AparatEntity)
+            .createQueryBuilder('aparat')
+            .leftJoinAndSelect('aparat.category_aparat', 'category_aparat')
+            .leftJoinAndSelect('aparat.company', 'company')
+            .leftJoinAndSelect('aparat.partners', 'partners')
+            .leftJoinAndSelect('aparat.descriptions', 'descriptions')
+            .leftJoinAndSelect('aparat.sample', 'sample')
+            .leftJoinAndSelect('aparat.photos', 'photos')
+            .leftJoinAndSelect('aparat.parametr', 'parametr')
+            .leftJoinAndSelect('aparat.design', 'design')
+            .orderBy("aparat.updateAt", 'DESC')
+    
         if (categoryId && +categoryId > 0) {
             query = query.where('aparat.category_aparat.id = :category_id', { category_id: categoryId });
         }
-
+    
         if (brandId && +brandId > 0) {
             query = query.andWhere('aparat.company.id = :company_id', { company_id: brandId });
         }
-
+    
         const aparat = await query.getMany();
         res.json(aparat);
     }
+    
 
     public async GetId(req: Request, res: Response): Promise<void> {
         const { id } = req.params
@@ -108,6 +119,7 @@ class AparatController {
                 aparat.image2 = image2 != undefined ? image2 : aparat.image2
                 aparat.image3 = image3 != undefined ? image3 : aparat.image3
                 aparat.pdf = pdf != undefined ? pdf : aparat.pdf
+                aparat.updateAt=new Date()
                 aparat.product_benefits = product_benefits != undefined ? product_benefits : aparat.product_benefits
                 aparat.product_benefits_uz = product_benefits_uz != undefined ? product_benefits_uz : aparat.product_benefits_uz
                 aparat.product_benefits_en = product_benefits_en != undefined ? product_benefits_en : aparat.product_benefits_en
@@ -125,6 +137,7 @@ class AparatController {
             aparat.image2 = image2 != undefined ? image2 : aparat.image2
             aparat.image3 = image3 != undefined ? image3 : aparat.image3
             aparat.pdf = pdf != undefined ? pdf : aparat.pdf
+            aparat.updateAt=new Date()
             aparat.product_benefits = product_benefits != undefined ? product_benefits : aparat.product_benefits
             aparat.product_benefits_uz = product_benefits_uz != undefined ? product_benefits_uz : aparat.product_benefits_uz
             aparat.product_benefits_en = product_benefits_en != undefined ? product_benefits_en : aparat.product_benefits_en

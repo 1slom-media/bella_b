@@ -6,7 +6,7 @@ class CosmeticsController {
     public async Get(req: Request, res: Response): Promise<void> {
         const { categoryId, brandId } = req.query
 
-        let query = AppDataSource.getRepository(CosmeticsEntity).createQueryBuilder('cosmetics').leftJoinAndSelect('cosmetics.category_cosmetics', 'category_cosmetics').leftJoinAndSelect('cosmetics.company', 'company').leftJoinAndSelect('cosmetics.descriptions', 'descriptions').orderBy('cosmetics.id', 'ASC')
+        let query = AppDataSource.getRepository(CosmeticsEntity).createQueryBuilder('cosmetics').leftJoinAndSelect('cosmetics.category_cosmetics', 'category_cosmetics').leftJoinAndSelect('cosmetics.company', 'company').leftJoinAndSelect('cosmetics.descriptions', 'descriptions').orderBy("cosmetics.updateAt", 'DESC')
 
         if (categoryId && +categoryId > 0) {
             query = query.where('cosmetics.category_cosmetics.id = :category_id', { category_id: categoryId });
@@ -49,8 +49,10 @@ class CosmeticsController {
             const { name_uz, name_en, name_ru, description_uz, description_en, description_ru, image1, image2, image3, pdf, company, category_cosmetics } = req.body
             const { id } = req.params
 
+            const updateAt=new Date()
+
             const cosmetics = await AppDataSource.getRepository(CosmeticsEntity).createQueryBuilder().update(CosmeticsEntity)
-                .set({ name_uz, name_en, name_ru, description_uz, description_en, description_ru, image1, image2, image3, pdf, company, category_cosmetics })
+                .set({ name_uz, name_en, name_ru, description_uz, description_en, description_ru, image1, image2, image3, pdf, company, category_cosmetics,updateAt })
                 .where({ id })
                 .returning("*")
                 .execute()

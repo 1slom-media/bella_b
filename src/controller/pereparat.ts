@@ -6,7 +6,7 @@ class PereparatController {
     public async Get(req: Request, res: Response): Promise<void> {
         const { categoryId, brandId } = req.query
 
-        let query = AppDataSource.getRepository(PereparatEntity).createQueryBuilder('pereparat').leftJoinAndSelect('pereparat.category_pereparat', 'category_pereparat').leftJoinAndSelect('pereparat.company', 'company').leftJoinAndSelect('pereparat.descriptions', 'descriptions').orderBy('pereparat.id', 'ASC')
+        let query = AppDataSource.getRepository(PereparatEntity).createQueryBuilder('pereparat').leftJoinAndSelect('pereparat.category_pereparat', 'category_pereparat').leftJoinAndSelect('pereparat.company', 'company').leftJoinAndSelect('pereparat.descriptions', 'descriptions').orderBy("pereparat.updateAt", 'DESC')
 
         if (categoryId && +categoryId > 0) {
             query = query.where('pereparat.category_pereparat.id = :category_id', { category_id: categoryId });
@@ -49,8 +49,10 @@ class PereparatController {
             const { name_uz, name_en, name_ru, description_uz, description_en, description_ru, image1, image2, image3, pdf, company, category_pereparat } = req.body
             const { id } = req.params
 
+            const updateAt=new Date()
+
             const pereparat = await AppDataSource.getRepository(PereparatEntity).createQueryBuilder().update(PereparatEntity)
-                .set({ name_uz, name_en, name_ru, description_uz, description_en, description_ru, image1, image2, image3, pdf, company, category_pereparat })
+                .set({ name_uz, name_en, name_ru, description_uz, description_en, description_ru, image1, image2, image3, pdf, company, category_pereparat,updateAt })
                 .where({ id })
                 .returning("*")
                 .execute()
