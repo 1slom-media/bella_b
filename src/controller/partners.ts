@@ -79,11 +79,11 @@ class PartnersController {
             const { logo, name_uz, name_en, name_ru, description_uz, description_en, description_ru, image1, image2, image3, location, phone_number1, phone_number2, telegram_link, facebook_link, instagram_link, aparat } = req.body
             const { id } = req.params
 
-            const foundAparat = await AppDataSource.getRepository(AparatEntity).find({ where: { id: aparat } })
+            // const foundAparat = await AppDataSource.getRepository(AparatEntity).find({ where: { id: aparat } })
 
             const partners = await AppDataSource.getRepository(PartnersEntity).findOneBy({ id: +id })
 
-            if (foundAparat && aparat) {
+            if (aparat) {
                 partners.logo = logo != undefined ? logo : partners.logo
                 partners.name_uz = name_uz != undefined ? name_uz : partners.name_uz
                 partners.name_en = name_en != undefined ? name_en : partners.name_en
@@ -100,7 +100,7 @@ class PartnersController {
                 partners.telegram_link = telegram_link != undefined ? telegram_link : partners.telegram_link
                 partners.facebook_link = facebook_link != undefined ? facebook_link : partners.facebook_link
                 partners.instagram_link = instagram_link != undefined ? instagram_link : partners.instagram_link
-                partners.aparat = foundAparat
+                partners.aparat = aparat
             }
             partners.logo = logo != undefined ? logo : partners.logo
             partners.name_uz = name_uz != undefined ? name_uz : partners.name_uz
